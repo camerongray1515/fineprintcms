@@ -38,9 +38,17 @@
 |
 */
 
-$route['default_controller'] = "welcome";
-$route['404_override'] = '';
+$route['default_controller'] = "pages";
+$route['404_override'] = "pages";
 
+// Route default fineprint URL to pages controller (If left as default will be overriden later)
+$route['fineprint/(:any)'] = "pages/$1";
+
+// Route Javascript controller to free up the alias of "javascript"
+$route['javascript/(:any)'] = "pages/$1";
+
+$route[ADMIN_ALIAS . '/(:any)'] = "fineprint/$1";
+$route[ADMIN_ALIAS] = "fineprint/dashboard";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

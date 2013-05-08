@@ -1,5 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+// Set the alias to be used when accessing the admin area
+define('ADMIN_ALIAS', 'admin');
+
+define('TABLE_DATE_FORMAT', 'jS M Y, H:s');
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
