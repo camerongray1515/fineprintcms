@@ -3,6 +3,8 @@ if ($ajax)
 {
 	$result['redirect_to'] = $redirect_to;
 	
+	header("Content-type: application/json");
+	
 	echo json_encode($result);
 }
 else

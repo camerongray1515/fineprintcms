@@ -7,9 +7,7 @@ var login = {
 		$.post(ci.site_url + '/admin/login/do_login', {
 			'username': username,
 			'password': password
-		}, function(json) {
-			var data = $.parseJSON(json);
-						
+		}, function(data) {						
 			if (data.success)
 			{
 				ui.show_alert('alert-container', 'Success!', data.message, 'success');

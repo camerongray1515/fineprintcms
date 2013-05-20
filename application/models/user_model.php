@@ -79,4 +79,59 @@ class User_model extends CI_Model {
 		
 		return $user;
 	}
+	
+	function update_password($current_password, $new_password, $confirm_new_password)
+	{
+		$this->load->library('phpass');
+		$this->load->model('login_model');
+		
+		// Check if new password is blank
+		if (trim($new_password) == '')
+		{
+			throw new Exception("You cannot have a blank password!", 1);
+		}
+		
+		// Check new passwords match
+		if ($new_password != $confirm_new_password)
+		{
+			throw new Exception('New passwords do not match, please correct this and try again!', 1);
+		}
+		
+		$logged_in_user = $this->login_model->get_logged_in_user();
+		
+		// Check the supplied value for "current_password" is correct
+		$current_password_hash = $logged_in_user->password_hash;
+		if (!$this->phpass->check($current_password, $current_password_hash))
+		{
+			throw new Exception("The password you supplied for 'Current Password' is incorrect.", 1);
+		}
+		
+		// Error checking complete so now update the password
+		$new_password_hash = $this->phpass->hash($new_password);
+		
+		$this->db->where('id', $logged_in_user->id);
+		$this->db->update('users', array('password_hash' => $new_password_hash));
+		
+		return TRUE;
+	}
+
+	function update_user($user_id, $first_name, $last_name, $username, $email)
+	{
+		if (trim($first_name) == "" || trim($last_name) == "" || trim($username) == "" || trim($email) == "")
+		{
+			throw new Exception("You must fill in all the fields for the profile information!", 1);
+		}
+		
+		$data = array(
+			'first_name'	=> $first_name,
+			'last_name'		=> $last_name,
+			'username'		=> $username,
+			'email'			=> $email
+		);
+		
+		$this->db->where('id', $user_id);
+		$this->db->update('users', $data);
+		
+		return TRUE;
+	}
 }

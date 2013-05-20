@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/fineprint.snippets.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/fineprint.editing.js'); ?>"></script>
 
 <h3>Edit Snippet</h3>
 
@@ -34,15 +35,26 @@
 		</div>
 	</div>
 	
-	<div class="control-group">
-		<label class="control-label" for="content">Content</label>
+	<div class="control-group js-only">
+		<label class="control-label" for="editor">Editor</label>
 		<div class="controls">
-			<textarea id="content" name="content" class="textarea-content"><?php echo $snippet->content; ?></textarea>
+			<select name="editor" id="editor" class="editor-edit">
+				<?php foreach ($editor_list as $editor): ?>
+					<option<?php if ($snippet->editor == $editor->id) { echo " selected"; } ?> value="<?php echo $editor->id; ?>"><?php echo $editor->name; ?></option>	
+				<?php endforeach; ?>
+			</select>
 		</div>
 	</div>
 	
-	<input type="hidden" name="snippet_id" id="snippet_id" value="<?php echo $snippet_id; ?>">
-	<input type="hidden" name="original_alias" id="original_alias" value="<?php echo $snippet->alias; ?>">
+	<div class="control-group">
+		<label class="control-label" for="content">Content</label>
+		<div class="controls">
+			<textarea id="content" name="content" class="textarea-content"><?php echo htmlspecialchars($snippet->content); ?></textarea>
+		</div>
+	</div>
+	
+	<input type="hidden" name="snippet-id" id="snippet-id" value="<?php echo $snippet_id; ?>">
+	<input type="hidden" name="original-alias" id="original-alias" value="<?php echo $snippet->alias; ?>">
 	
 	<div class="form-actions">
 		<?php echo top_buttons_button('save', 'Save Snippet', 'success', 'hdd'); ?>

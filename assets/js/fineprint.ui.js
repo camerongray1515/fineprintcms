@@ -1,6 +1,8 @@
 var ui = {
-	show_alert: function (alert_container, title, message, type)
+	show_alert: function(alert_container, title, message, type)
 	{
+		ui.scroll_to_top();
+		
 		$('#' + alert_container).css('overflow', 'hidden');
 		$('#' + alert_container).css('height', '0');
 		
@@ -30,7 +32,14 @@ var ui = {
         });
 	},
 	
-	redirect_then_message: function (success, message, redirect_to)
+	scroll_to_top: function()
+	{
+		$("html, body").animate({
+			scrollTop: 0
+		}, 'slow');
+	},
+	
+	redirect_then_message: function(success, message, redirect_to)
 	{
 		// Sets a flashdata message over AJAX then redirects
 		
@@ -57,3 +66,7 @@ var ui = {
 		});
 	}
 }
+
+$(document).ready(function() {
+	$('.js-only').show();
+});

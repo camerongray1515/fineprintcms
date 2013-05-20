@@ -7,9 +7,9 @@ class Snippets extends FP_Controller {
 	
 	function index()
 	{
-		$this->load->model('snippets_model');
+		$this->load->model('snippet_model');
 		
-		$snippets = $this->snippets_model->get_all_snippets();
+		$snippets = $this->snippet_model->get_all_snippets();
 		
 		$this->load->view('common/header', array('title' => 'Snippets'));
 		$this->load->view('snippets/index', array('snippets' => $snippets));
@@ -18,19 +18,72 @@ class Snippets extends FP_Controller {
 	
 	function add()
 	{
+		$this->load->model('editor_model');
+		
 		$this->load->view('common/header', array('title' => 'Add Snippet'));
-		$this->load->view('common/content_editor');
-		$this->load->view('snippets/add');
+		
+		$editor_id = $this->input->get('editor_id');
+		$editor = $this->editor_model->get_editor($editor_id);
+		$this->load->view('common/content_editor', array('editor' => $editor));
+		
+		$editors = $this->editor_model->editor_list();
+		$data = array(
+			'editor_list' => $editors,
+			'editor_id' => $editor->id
+		);
+		$this->load->view('snippets/add', $data);
+		
+		$this->load->view('common/footer');
+	}
+	
+	function edit($snippet_id = -1)
+	{
+		$this->load->model('snippet_model');
+		$this->load->model('editor_model');
+		
+		$snippet = $this->snippet_model->get_snippet($snippet_id, 'id');
+		
+		if (!$snippet)
+		{
+			$data = array(
+				'result' => array(
+					'success'	=> FALSE,
+					'message'	=> 'The snippet you are trying to edit could not be found, please try again, if this error persists, please contact your administrator.'
+				),
+				'redirect_to' => admin_url('snippets'),
+				'ajax' => FALSE
+			);
+			
+			$this->load->view('action_result', $data);
+			
+			return;
+		}
+
+		$this->load->view('common/header', array('title' => 'Edit Snippet'));
+		
+		$editor = $this->editor_model->get_editor($snippet->editor);
+		$this->load->view('common/content_editor', array('editor' => $editor));
+		
+		$editors = $this->editor_model->editor_list();
+		
+		$data = array(
+			'snippet' => $snippet,
+			'snippet_id' => $snippet_id,
+			'editor_list' => $editors
+		);
+		
+		$this->load->view('snippets/edit', $data);
 		$this->load->view('common/footer');
 	}
 	
 	function do_add($no_ajax = FALSE)
 	{
-		$this->load->model('snippets_model');
+		$this->load->model('snippet_model');
 		
 		$title = $this->input->post('title');
 		$alias = $this->input->post('alias');
 		$content = $this->input->post('content');
+		$editor = $this->input->post('editor');
 		
 		$success = TRUE;
 		$message = 'Snippet has been added successfully!';
@@ -43,7 +96,7 @@ class Snippets extends FP_Controller {
 		{
 			try
 			{
-				$this->snippets_model->add_snippet($alias, $title, $content);
+				$this->snippet_model->add_snippet($alias, $title, $content, $editor);
 			}
 			catch (exception $e)
 			{
@@ -87,13 +140,13 @@ class Snippets extends FP_Controller {
 	
 	function do_delete($snippet_id, $no_ajax = FALSE)
 	{
-		$this->load->model('snippets_model');
+		$this->load->model('snippet_model');
 				
 		$success = TRUE;
 		$message = 'Snippet has been deleted successfully!';
 		try
 		{
-			$this->snippets_model->delete_snippet($snippet_id);
+			$this->snippet_model->delete_snippet($snippet_id);
 		}
 		catch (exception $e)
 		{
@@ -118,48 +171,16 @@ class Snippets extends FP_Controller {
 		$this->load->view('action_result', $data);
 	}
 	
-	function edit($snippet_id = -1)
+	function do_edit($no_ajax = FALSE)
 	{
-		$this->load->model('snippets_model');
-		
-		$snippet = $this->snippets_model->get_snippet($snippet_id, 'id');
-		
-		if (!$snippet)
-		{
-			$data = array(
-				'result' => array(
-					'success'	=> FALSE,
-					'message'	=> 'The snippet you are trying to edit could not be found, please try again, if this error persists, please contact your administrator.'
-				),
-				'redirect_to' => admin_url('snippets'),
-				'ajax' => FALSE
-			);
-			
-			$this->load->view('action_result', $data);
-			
-			return;
-		}
-		
-		$data = array(
-			'snippet' => $snippet,
-			'snippet_id' => $snippet_id
-		);
-		
-		$this->load->view('common/header', array('title' => 'Edit Snippet'));
-		$this->load->view('common/content_editor');
-		$this->load->view('snippets/edit', $data);
-		$this->load->view('common/footer');
-	}
-	
-	function do_edit($no_ajax)
-	{
-		$this->load->model('snippets_model');
+		$this->load->model('snippet_model');
 		
 		$title = $this->input->post('title');
 		$alias = $this->input->post('alias');
 		$content = $this->input->post('content');
-		$snippet_id = $this->input->post('snippet_id');
-		$original_alias = $this->input->post('original_alias');
+		$snippet_id = $this->input->post('snippet-id');
+		$original_alias = $this->input->post('original-alias');
+		$editor = $this->input->post('editor');
 		
 		$success = TRUE;
 		$message = 'Snippet has been saved successfully!';
@@ -172,7 +193,7 @@ class Snippets extends FP_Controller {
 		{
 			try
 			{
-				$this->snippets_model->update_snippet($snippet_id, $original_alias, $alias, $title, $content);
+				$this->snippet_model->update_snippet($snippet_id, $original_alias, $alias, $title, $content, $editor);
 			}
 			catch (exception $e)
 			{

@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/fineprint.snippets.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/fineprint.editing.js'); ?>"></script>
 
 <h3>Add Snippet</h3>
 
@@ -31,6 +32,17 @@
 		<label class="control-label" for="alias">Alias</label>
 		<div class="controls">
 			<input type="text" id="alias" name="alias" placeholder="A short name to use when including your snippet e.g. 'sidebar-right'" class="input-xxlarge" value="<?php echo $alias; ?>">
+		</div>
+	</div>
+	
+	<div class="control-group js-only">
+		<label class="control-label" for="editor">Editor</label>
+		<div class="controls">
+			<select name="editor" id="editor" class="editor-add">
+				<?php foreach ($editor_list as $editor): ?>
+					<option<?php if ($editor_id == $editor->id) { echo " selected"; } ?> value="<?php echo $editor->id; ?>"><?php echo $editor->name; ?></option>	
+				<?php endforeach; ?>
+			</select>
 		</div>
 	</div>
 	

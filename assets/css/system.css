@@ -19,3 +19,17 @@
 	height: 400px;
 	padding: 0;
 }
+
+#page-container {
+	/* Move down to allow space for navbar */
+	margin-top: 50px;
+}
+
+.js-only {
+	display: none;
+}
+
+/* Bootstrap Overrides */
+.alert {
+	text-align: justify !important;
+}

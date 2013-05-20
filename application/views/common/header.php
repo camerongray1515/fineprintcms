@@ -1,6 +1,6 @@
 <?php $this->load->view('common/top_html', array('title' => $title)); ?>
 
-<div class="navbar navbar-inverse nav">
+<div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -25,9 +25,8 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <?php echo $this->login_model->get_logged_in_user('first_name'); ?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<!--<li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
-								<li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
-								<li class="divider"></li>-->
+								<li><a href="<?php echo admin_url('profile/edit'); ?>"><i class="icon-cog"></i> Account Settings</a></li>
+								<li class="divider"></li>
 								<li><a href="<?php echo admin_url('login/logout'); ?>"><i class="icon-off"></i> Logout</a></li>
 							</ul>
 						</li>
@@ -38,4 +37,4 @@
 	</div>
 </div>
 
-<div class="container">
+<div class="container" id="page-container">
