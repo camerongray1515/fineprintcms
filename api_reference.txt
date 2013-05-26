@@ -1,0 +1,21 @@
+----------------------- FIX PAGE ADDING WITH NO LAYOUTS
+
+----- Allow passing of parameters into load statements
+
+-- Syntax
+
+Default open tag:	[*
+Default close tag:	*]
+
+-- Core API
+
+In all examples, 'core.' can be omitted
+
+- Load block
+core.load_block('foo')
+
+- Load snippet
+core.load_snippet('foo')
+
+- Get content
+core.load_page_content()
