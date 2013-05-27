@@ -64,4 +64,20 @@ class Core {
 		
 		return $page->title;
 	}
+	
+	// Parameters: path
+	function TAG_base_url($parameters)
+	{
+		$path = $parameters[0];
+		
+		return base_url($path);
+	}
+	
+	// Parameters: path
+	function TAG_site_url($parameters)
+	{
+		$path = $parameters[0];
+		
+		return site_url($path);
+	}
 }

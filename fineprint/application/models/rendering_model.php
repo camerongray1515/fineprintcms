@@ -17,7 +17,7 @@ class Rendering_model extends CI_Model {
 	function render_content($content)
 	{
 		// Extract function calls from content
-		$get_tag_regex = '/' . preg_quote(OPEN_TAG) . '(.*?)' . preg_quote(CLOSE_TAG) . '/';
+		$get_tag_regex = '/' . preg_quote(OPEN_TAG, '/') . '(.*?)' . preg_quote(CLOSE_TAG, '/') . '/';
 		preg_match_all($get_tag_regex, $content, $function_calls);
 		$function_calls = $function_calls[1];
 		
@@ -48,7 +48,7 @@ class Rendering_model extends CI_Model {
 		// Now replace all tags with their retrieved content
 		foreach ($functions as $function)
 		{
-			$replace_tag_regex = '/' . preg_quote(OPEN_TAG) . '[ \t]*' . preg_quote($function->original_call) . '[ \t]*' . preg_quote(CLOSE_TAG) . '/';
+			$replace_tag_regex = '/' . preg_quote(OPEN_TAG, '/') . '[ \t]*' . preg_quote($function->original_call, '/') . '[ \t]*' . preg_quote(CLOSE_TAG, '/') . '/';
 			$content = preg_replace($replace_tag_regex, $function->result, $content);
 		}
 		

@@ -1,7 +1,7 @@
 <?php
 class FP_Controller extends CI_Controller {
 	function __construct($allowed_roles = array())
-	{
+	{		
 		parent::__construct();
 		
 		$this->load->model('login_model');
