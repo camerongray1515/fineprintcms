@@ -1,5 +1,5 @@
-*/config/development
-*/logs/log-*.php
-*/logs/!index.html
-*/cache/*
-*/cache/!index.html
+fineprint/application/config/development
+fineprint/application/logs/log-*.php
+fineprint/application/logs/!index.html
+fineprint/application/cache/*
+fineprint/application/cache/!index.html
