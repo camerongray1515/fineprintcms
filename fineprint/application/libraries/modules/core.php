@@ -1,14 +1,5 @@
 <?php
-class Core {
-	private $FP;
-	
-	function __construct()
-	{
-		$this->FP =& get_instance();
-		$this->FP->load->library('module');
-	}
-
-	
+class Core extends Module {
 	// Parameters: snippet_alias
 	function TAG_load_snippet($parameters)
 	{
@@ -31,16 +22,16 @@ class Core {
 	
 	function get_page()
 	{
-		if (!$this->FP->module->get_module_data('core', 'page'))
+		if (!$this->module->get_module_data('core', 'page'))
 		{
 			$this->FP->load->model('page_model');
 			
 			$page = $this->FP->page_model->get_page($GLOBALS['page_alias'], 'alias');
 			
-			$this->FP->module->set_module_data('core', 'page', $page);
+			$this->module->set_module_data('core', 'page', $page);
 		}
 				
-		return $this->FP->module->get_module_data('core', 'page');
+		return $this->module->get_module_data('core', 'page');
 	}
 	
 	// Parameters: [NONE]
@@ -80,4 +71,12 @@ class Core {
 		
 		return site_url($path);
 	}
+
+    // Parameters: path
+    function TAG_admin_url($parameters)
+    {
+        $path = $parameters[0];
+
+        return admin_url($path);
+    }
 }

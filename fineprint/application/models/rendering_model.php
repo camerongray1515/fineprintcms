@@ -4,6 +4,7 @@ class Rendering_model extends CI_Model {
 	{
 		$this->load->model('page_model');
 		$this->load->model('layout_model');
+
 		$page = $this->page_model->get_page($page_alias);
 		
 		// We start rendering from the layout
@@ -15,10 +16,16 @@ class Rendering_model extends CI_Model {
 	}
 	
 	function render_content($content)
-	{
+    {
+        // Take hash of content from before update
+        $before_hash = hash('sha256', $content);
+
 		// Extract function calls from content
-		$get_tag_regex = '/' . preg_quote(OPEN_TAG, '/') . '(.*?)' . preg_quote(CLOSE_TAG, '/') . '/';
+		$get_tag_regex = '/' . preg_quote(OPEN_TAG, '/') . '[ \t]*((((?:[a-z][a-z0-9_]*))\\.)?((?:[a-z][a-z0-9_]*))(?:\(.*\)))[ \t]*' . preg_quote(CLOSE_TAG, '/') . '/';
 		preg_match_all($get_tag_regex, $content, $function_calls);
+
+        //die(print_r($function_calls, TRUE));
+
 		$function_calls = $function_calls[1];
 		
 		$functions = array();
@@ -51,43 +58,82 @@ class Rendering_model extends CI_Model {
 			$replace_tag_regex = '/' . preg_quote(OPEN_TAG, '/') . '[ \t]*' . preg_quote($function->original_call, '/') . '[ \t]*' . preg_quote(CLOSE_TAG, '/') . '/';
 			$content = preg_replace($replace_tag_regex, $function->result, $content);
 		}
-		
-		// If there are still functions, render again
+
+        $after_hash = hash('sha256', $content);
+
+        if ($before_hash == $after_hash)
+        {
+            die('<h1>Fatal Error</h1><p>It appears as though Fine Print CMS encountered an infinite loop when rendering this page.</p>');
+        }
+
+        // If there are still functions, render again
 		preg_match_all($get_tag_regex, $content, $function_calls);
 		$function_calls = $function_calls[1];
 		if (count($function_calls) != 0)
 		{
 			$content = $this->render_content($content);
 		}
-		
+
 		return $content;
 	}
 
 	function execute_function($function)
 	{
-		$result = "";
-		try
-		{
-			$this->load->library($function->module);
-			
-			if (method_exists($function->module, 'TAG_' . $function->function))
-			{
-				$result = $this->{$function->module}->{'TAG_'. $function->function}($function->parameters);
-			}
-			else
-			{
-				throw new Exception("The module you are calling does not contain the function: {$function->function}", 1);
-			}
-		}
-		catch (exception $e)
-		{
-			$error = $e->getMessage();
-			
-			$error = str_replace('class', 'module', $error); // Get the language right to avoid confusion!
-			
-			$result = "<!-- Error: $error -->";
-		}
-		
-		return $result;
+        $this->load->model('module_model');
+
+        $result = '';
+        try
+        {
+            $result = $this->module_model->execute($function->module, 'tag', $function->function, $function->parameters);
+        }
+        catch (exception $e)
+        {
+            $error = $e->getMessage();
+
+            $error = str_replace('class', 'module', $error); // Get the language right to avoid confusion!
+
+            $result = "<!-- Error: $error -->";
+        }
+
+        return $result;
 	}
+
+//    function execute_function($function)
+//	{
+//		$result = "";
+//		try
+//		{
+//            if (file_exists(APPPATH."libraries/modules/{$function->module}.php"))
+//            {
+//                $this->load->library("modules/{$function->module}");
+//            }
+//            else if (file_exists(APPPATH."../../modules/{$function->module}/{$function->module}.php"))
+//            {
+//                $this->load->library("../../../modules/{$function->module}/{$function->module}");
+//            }
+//            else
+//            {
+//                throw new Exception("Unable to load the requested module ({$function->module})", 1);
+//            }
+//
+//			if (method_exists($function->module, 'TAG_' . $function->function))
+//			{
+//				$result = $this->{$function->module}->{'TAG_'. $function->function}($function->parameters);
+//			}
+//			else
+//			{
+//				throw new Exception("The module you are calling does not contain the function: {$function->function}", 1);
+//			}
+//		}
+//		catch (exception $e)
+//		{
+//			$error = $e->getMessage();
+//
+//			$error = str_replace('class', 'module', $error); // Get the language right to avoid confusion!
+//
+//			$result = "<!-- Error: $error -->";
+//		}
+//
+//		return $result;
+//	}
 }

@@ -1,0 +1,7 @@
+{
+    "name":         "Test Module",
+    "description":  "A module for testing the functionality of Fine Print CMS",
+    "version":      "1.0",
+    "identifier":   "test_module",
+    "developer":    "Cameron Gray"
+}

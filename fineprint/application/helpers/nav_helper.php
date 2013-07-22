@@ -1,11 +1,11 @@
 <?php
-function top_nav_item($alias, $inner_html, $allowed_roles, $icon=FALSE)
+function top_nav_item($alias, $inner_html, $controller, $icon=FALSE)
 {
 	$ci =& get_instance();
 	
-	$logged_in_role = $ci->login_model->get_logged_in_user('role');
-	
-	if (array_search($logged_in_role, $allowed_roles) === FALSE)
+	$ci->load->model('login_model');
+		
+	if (!$ci->login_model->is_allowed_to_access_controller($controller))
 	{
 		return '';
 	}
@@ -51,7 +51,7 @@ function top_buttons_button($id, $text, $type, $icon=FALSE)
 	return $html;
 }
 
-function tab_item_link($text, $url, $current_url = FALSE)
+function tab_item_link($text, $url, $match_sub_method = FALSE, $current_url = FALSE)
 {
 	$ci =& get_instance();
 	
@@ -59,8 +59,10 @@ function tab_item_link($text, $url, $current_url = FALSE)
 	{
 		$current_url = current_url();
 	}
-	
-	$active = ($url == $current_url) ? ' class="active"' : '';
-	
+
+	// $active = ($url == $current_url) ? ' class="active"' : '';
+
+	$active = (($match_sub_method && strpos($current_url, $url) !== FALSE) || (!$match_sub_method && $current_url == $url)) ? ' class="active"' : '';
+
 	return '<li' . $active . '><a href="' . $url . '">' . $text . '</a></li>';
 }

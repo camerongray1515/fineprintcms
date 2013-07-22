@@ -1,10 +1,5 @@
 <?php
 class Snippets extends FP_Controller {
-	function __construct()
-	{
-		parent::__construct(array('administrator', 'designer'));
-	}
-	
 	function index()
 	{
 		$this->load->model('snippet_model');

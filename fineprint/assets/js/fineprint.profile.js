@@ -34,12 +34,14 @@ var profile = {
 		var last_name = $('#last-name').val();
 		var username = $('#username').val();
 		var email = $('#email').val();
+        var original_username = $('#original-username').val();
 		
 		$.post(ci.admin_url + "/profile/do_update_information", {
 			'first-name': first_name,
 			'last-name': last_name,
 			'username': username,
-			'email': email
+			'email': email,
+            'original-username': original_username
 		}, function(data) {			
 			var type = 'success';
 			var title = 'Success!';
@@ -49,6 +51,10 @@ var profile = {
 				type = 'error';
 				title = 'Error!';
 			}
+            else
+            {
+                $('#original-username').val(username);
+            }
 			
 			ui.show_alert('alert-container', title, data.message, type);
 		});

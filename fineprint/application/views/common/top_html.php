@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="<?php echo application_base_url('assets/js/jquery.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo application_base_url('assets/js/bootstrap.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo application_base_url('assets/js/bootbox.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo application_base_url('assets/js/fineprint.functions.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo application_base_url('assets/js/fineprint.ui.js'); ?>"></script>
 </head>
 

@@ -2,6 +2,7 @@
 
 // Set the alias to be used when accessing the admin area
 define('ADMIN_ALIAS', 'admin');
+define('FRONTEND_MODULE_ALIAS', 'frontend_module');
 
 define('TABLE_DATE_FORMAT', 'jS M Y, H:i');
 

@@ -1,3 +1,10 @@
+html{
+    height: 100%;
+}
+body {
+    min-height: 100%;
+}
+
 #login-form-container {
 	width: 600px;
 	min-height: 200px;
@@ -22,7 +29,7 @@
 
 #page-container {
 	/* Move down to allow space for navbar */
-	margin-top: 50px;
+	padding-top: 50px;
 }
 
 .js-only {
@@ -44,4 +51,45 @@ span.error {
 
 span.success {
 	color: #468847;
+}
+
+/* Tick and cross icons */
+i.icon-large-tick {
+    height: 25px;
+    width: 30px;
+    display: block;
+    margin: 0 auto;
+    background-image: url('../img/tick-cross.gif');
+
+    background-position: -30px 0;
+}
+
+i.icon-large-cross {
+    height: 25px;
+    width: 30px;
+    display: block;
+    margin: 0 auto;
+    background-image: url('../img/tick-cross.gif');
+
+    background-position: 0 0;
+}
+
+th.permission {
+    width: 1px;
+}
+
+td.actions, th.actions {
+    width: 100%;
+    text-align: right !important;
+}
+
+#permissions-container {
+    width: 504px;
+}
+
+#dashboard-iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    margin-top: -10px;
 }

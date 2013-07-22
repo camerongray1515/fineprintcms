@@ -1,10 +1,5 @@
 <?php
-class Pages extends FP_Controller {
-	function __construct()
-	{
-		parent::__construct(array('administrator', 'designer', 'user'));
-	}
-	
+class Pages extends FP_Controller {	
 	function index()
 	{
 		$this->load->model('page_model');

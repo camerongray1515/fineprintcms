@@ -1,10 +1,5 @@
 <?php
-class Profile extends FP_Controller {
-	function __construct()
-	{
-		parent::__construct(array('administrator', 'designer', 'user'));
-	}
-	
+class Profile extends FP_Controller {	
 	function edit()
 	{
 		$this->load->model('login_model');
@@ -19,16 +14,20 @@ class Profile extends FP_Controller {
 	function do_update_password($no_ajax = FALSE)
 	{
 		$this->load->model('user_model');
+        $this->load->model('login_model');
 		
 		$current_password = $this->input->post('current-password');
 		$new_password = $this->input->post('new-password');
 		$confirm_new_password = $this->input->post('confirm-new-password');
+
+        // Get the currently logged in user
+        $user_id = $this->login_model->get_logged_in_user('id');
 		
 		$success = TRUE;
 		$message = 'Password has been updated successfully!';
 		try
 		{
-			$this->user_model->update_password($current_password, $new_password, $confirm_new_password);
+			$this->user_model->update_profile_password($user_id, $current_password, $new_password, $confirm_new_password);
 		}
 		catch (exception $e)
 		{
@@ -59,6 +58,7 @@ class Profile extends FP_Controller {
 		$last_name = $this->input->post('last-name');
 		$username = $this->input->post('username');
 		$email = $this->input->post('email');
+        $original_username = $this->input->post('original-username');
 		
 		// Get the currently logged in user
 		$user_id = $this->login_model->get_logged_in_user('id');
@@ -67,7 +67,7 @@ class Profile extends FP_Controller {
 		$message = 'Information has been updated successfully!';
 		try
 		{
-			$this->user_model->update_user($user_id, $first_name, $last_name, $username, $email);
+			$this->user_model->update_user($user_id, $original_username, $first_name, $last_name, $username, $email);
 		}
 		catch (exception $e)
 		{

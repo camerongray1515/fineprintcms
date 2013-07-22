@@ -44,6 +44,8 @@
 			
 			<label for="email">Email Address</label>
 			<input type="text" class="input-xlarge" id="email" name="email" value="<?php echo $user->email; ?>">
+
+            <input type="hidden" id="original-username" name="original-username" value="<?php echo $user->username; ?>">
 		
 			<br>
 			

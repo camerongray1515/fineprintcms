@@ -1,10 +1,5 @@
 <?php
 class Blocks extends FP_Controller {
-	function __construct()
-	{
-		parent::__construct(array('administrator', 'designer', 'user'));
-	}
-	
 	function index()
 	{
 		$this->load->model('block_model');

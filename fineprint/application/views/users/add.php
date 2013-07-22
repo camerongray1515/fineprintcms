@@ -2,6 +2,7 @@
 
 <h3>Add User</h3>
 
+<div id="alert-container">
 <?php
 	$first_name = $last_name = $email = $username = $role = '';
 
@@ -24,6 +25,7 @@
 		echo alert_html($title, $message, $type);
 	}
 ?>
+</div>
 
 <form class="form-horizontal" id="add-user-form" method="POST" action="<?php echo admin_url('users/do_add/no_ajax'); ?>">
 	<div class="control-group">
@@ -50,7 +52,8 @@
 	<div class="control-group" style="margin-top: 50px;">
 		<label class="control-label" for="username">Username</label>
 		<div class="controls">
-			<input type="text" class="input-xlarge" id="username" name="username" value="<?php echo $username; ?>"> 
+			<input type="text" class="input-xlarge" id="username" name="username" value="<?php echo $username; ?>">
+            <span id="username-message" class="help-inline"></span>
 		</div>
 	</div>
 	
@@ -58,9 +61,9 @@
 		<label class="control-label" for="role">Role</label>
 		<div class="controls">
 			<select id="role" name="role" class="input-medium">
-				<option value="administrator">Administrator</option>
-				<option value="designer">Designer</option>
-				<option value="user">User</option>
+				<?php foreach ($roles as $role): ?>
+                    <option value="<?php echo $role->id; ?>"><?php echo $role->name; ?></option>
+                <?php endforeach; ?>
 			</select>
 		</div>
 	</div>

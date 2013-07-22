@@ -5,16 +5,16 @@
 		
 		<?php
 			// Build array of different areas editors operate in
-			$editor_areas = array('Pages', 'Blocks', 'Snippets', 'Layouts');
+			$editor_areas = array('Pages', 'Blocks', 'Snippets', 'Layouts', 'Dashboard Settings');
 		?>
 		
 		<?php foreach ($editor_areas as $area): ?>
 			<div class="control-group">
 				<label class="control-label"><?php echo $area ?></label>
 				<div class="controls">
-					<select class="input-xlarge" id="editor-<?php echo strtolower($area); ?>" name="editor-<?php echo strtolower($area); ?>">
+					<select class="input-xlarge" id="editor-<?php echo strtolowerunderscore($area); ?>" name="editor-<?php echo strtolowerunderscore($area); ?>">
 						<?php foreach($editors as $editor): ?>
-							<option<?php if ($default_editors[strtolower($area)] == $editor->id) { echo ' selected'; } ?> value="<?php echo $editor->id; ?>"><?php echo $editor->name; ?></option>
+							<option<?php if ($default_editors[strtolowerunderscore($area)] == $editor->id) { echo ' selected'; } ?> value="<?php echo $editor->id; ?>"><?php echo $editor->name; ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>

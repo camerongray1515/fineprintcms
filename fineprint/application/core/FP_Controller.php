@@ -1,12 +1,15 @@
 <?php
 class FP_Controller extends CI_Controller {
-	function __construct($allowed_roles = array())
+	function __construct()
 	{		
 		parent::__construct();
 		
 		$this->load->model('login_model');
+		$this->load->model('user_model');
 		
 		$logged_in_user = $this->login_model->get_logged_in_user();
+		
+		$current_controller = $this->router->fetch_class();
 		
 		$error = FALSE;
 		
@@ -14,7 +17,7 @@ class FP_Controller extends CI_Controller {
 		{
 			$error = 'Please login to continue.';
 		}
-		else if (array_search($logged_in_user->role, $allowed_roles) === FALSE)
+		else if (!$this->login_model->is_allowed_to_access_controller($current_controller))
 		{		
 			$error = 'You do not have permission to access that area, please contact your administrator.  Either log in as a user that has permission or press the back button in your browser to go back to where you came from.';
 		}

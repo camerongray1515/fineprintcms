@@ -26,5 +26,5 @@ class Testing extends CI_Controller {
 		// else {
 			// echo "Incorrect!";
 		// }
-	// } 
+	// }
 }

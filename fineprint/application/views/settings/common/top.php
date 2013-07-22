@@ -7,6 +7,8 @@
 <ul class="nav nav-tabs">
 	<?php echo tab_item_link('Site Settings', admin_url('settings')); ?>
 	<?php echo tab_item_link('Default Editors', admin_url('settings/default_editors')); ?>
+    <?php echo tab_item_link('Dashboard Settings', admin_url('settings/dashboard_settings'), TRUE); ?>
+    <?php echo tab_item_link('Roles & Permissions', admin_url('roles'), TRUE); ?>
 </ul>
 
 <div id="alert-container">

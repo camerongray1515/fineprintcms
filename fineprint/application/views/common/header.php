@@ -10,15 +10,15 @@
 			</a>
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<?php echo top_nav_item('', 'Dashboard', array('administrator', 'user', 'designer'), 'home'); ?>
-					<?php echo top_nav_item('pages', 'Pages', array('administrator', 'user', 'designer'), 'file'); ?>
-					<?php echo top_nav_item('blocks', 'Blocks', array('administrator', 'user', 'designer'), 'th-large'); ?>
-					<?php echo top_nav_item('snippets', 'Snippets', array('administrator', 'designer'), 'th'); ?>
-					<?php echo top_nav_item('layouts', 'Layouts', array('administrator', 'designer'), 'align-justify'); ?>
-					<?php echo top_nav_item('files', 'Files', array('administrator', 'user', 'designer'), 'folder-open'); ?>
-					<?php echo top_nav_item('modules', 'Modules', array('administrator'), 'wrench'); ?>
-					<?php echo top_nav_item('users', 'Users', array('administrator'), 'user'); ?>
-					<?php echo top_nav_item('settings', 'Settings', array('administrator'), 'cog'); ?>
+					<?php echo top_nav_item('dashboard', 'Dashboard', 'dashboard', 'home'); ?>
+					<?php echo top_nav_item('pages', 'Pages', 'pages', 'file'); ?>
+					<?php echo top_nav_item('blocks', 'Blocks', 'blocks', 'th-large'); ?>
+					<?php echo top_nav_item('snippets', 'Snippets', 'snippets', 'th'); ?>
+					<?php echo top_nav_item('layouts', 'Layouts', 'layouts', 'align-justify'); ?>
+					<?php echo top_nav_item('files', 'Files', 'files', 'folder-open'); ?>
+					<?php echo top_nav_item('modules', 'Modules', 'modules', 'wrench'); ?>
+					<?php echo top_nav_item('users', 'Users', 'users', 'user'); ?>
+					<?php echo top_nav_item('settings', 'Settings', 'settings', 'cog'); ?>
 				</ul>
 				<div class="pull-right">
 					<ul class="nav pull-right">
