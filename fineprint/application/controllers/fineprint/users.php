@@ -7,6 +7,7 @@ class Users extends FP_Controller {
 		$data['users'] = $this->user_model->get_all_users();
 		
 		$this->load->view('common/header', array('title' => 'Users'));
+        $this->load->view('settings/common/top');
 		$this->load->view('users/index', $data);
 		$this->load->view('common/footer');
 	}
@@ -18,6 +19,7 @@ class Users extends FP_Controller {
         $roles = $this->roles_model->get_all_roles();
 
 		$this->load->view('common/header', array('title' => 'Add User'));
+        $this->load->view('settings/common/top');
 		$this->load->view('users/add', array('roles' => $roles));
 		$this->load->view('common/footer');
 	}
@@ -109,6 +111,7 @@ class Users extends FP_Controller {
         $data['user_id'] = $user_id;
 
         $this->load->view('common/header', array('title' => 'Delete User'));
+        $this->load->view('settings/common/top');
         $this->load->view('users/delete', $data);
         $this->load->view('common/footer');
     }
@@ -150,6 +153,7 @@ class Users extends FP_Controller {
         $data['user'] = $this->user_model->get_user($user_id);
 
         $this->load->view('common/header', array('title' => 'Edit User'));
+        $this->load->view('settings/common/top');
         $this->load->view('users/edit', $data);
         $this->load->view('common/footer');
     }

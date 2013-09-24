@@ -15,16 +15,26 @@ class Test_module extends Module {
         $title = $parameters[0];
         $content = $parameters[1];
 
-        return $this->module->render_view('test_view', array('title' => $title, 'body' => $content));
+        $content = $this->module->render_view('test_view', array('title' => $title, 'body' => $this->module->get_page_alias()));
+
+        // $content = $this->module->escape_tags($content);
+
+        return $content;
     }
 
     function FRONTEND_test()
     {
-        return print_r($_GET, TRUE);
+        return "[* core.load_block('footer') *]";
     }
 
     function BACKEND_index()
     {
         return "<h1>It works!</h1>";
+    }
+
+    function BACKEND_repeat()
+    {
+        $value = $this->FP->input->get('message');
+        return "You said: $value";
     }
 }

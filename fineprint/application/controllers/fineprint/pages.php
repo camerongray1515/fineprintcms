@@ -5,10 +5,10 @@ class Pages extends FP_Controller {
 		$this->load->model('page_model');
 		
 		$pages = $this->page_model->get_all_pages();
-		
-		$this->load->view('common/header', array('title' => 'Pages'));
-		$this->load->view('pages/index', array('pages' => $pages));
-		$this->load->view('common/footer');
+
+        $this->load->view('common/header', array('title' => 'Pages'));
+        $this->load->view('pages/index', array('pages' => $pages));
+        $this->load->view('common/footer');
 	}
 	
 	function add()

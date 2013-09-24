@@ -2,12 +2,17 @@
 
 // Set the alias to be used when accessing the admin area
 define('ADMIN_ALIAS', 'admin');
-define('FRONTEND_MODULE_ALIAS', 'frontend_module');
+define('FRONTEND_MODULE_ALIAS', 'fp_module');
+define('FILE_DIR', 'files');
 
 define('TABLE_DATE_FORMAT', 'jS M Y, H:i');
 
 define('OPEN_TAG', '[*');
 define('CLOSE_TAG', '*]');
+define('ESCAPED_OPEN_TAG', '[\*');
+define('ESCAPED_CLOSE_TAG', '*\]');
+
+define('TAG_REGEX', '/' . preg_quote(OPEN_TAG, '/') . '[ \t]*((((?:[a-z][a-z0-9_]*))\\.)?((?:[a-z][a-z0-9_]*))(?:\(.*\)))[ \t]*' . preg_quote(CLOSE_TAG, '/') . '/');
 
 /*
 |--------------------------------------------------------------------------

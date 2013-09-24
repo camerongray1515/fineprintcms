@@ -1,6 +1,6 @@
 <?php
 class Module_frontend extends CI_Controller {
-    function index($module_identifier = FALSE, $function = FALSE)
+    function execute($module_identifier = FALSE, $function = FALSE)
     {
         $this->load->model('module_model');
 

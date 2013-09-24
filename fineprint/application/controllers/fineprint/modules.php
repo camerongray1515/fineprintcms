@@ -4,8 +4,6 @@ class Modules extends FP_Controller {
     {
         $this->load->model('module_model');
 
-        $this->module_model->scan_modules();
-
         $data['modules'] = $this->module_model->get_all();
 
         $this->load->view('common/header', array('title' => 'Modules'));

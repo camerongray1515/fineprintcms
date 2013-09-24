@@ -1,6 +1,6 @@
 <script type="text/javascript" src="<?php echo application_base_url('assets/js/fineprint.users.js'); ?>"></script>
 
-<h3>Manage Users</h3>
+<h4>Manage Users</h4>
 
 <div id="alert-container">
     <?php

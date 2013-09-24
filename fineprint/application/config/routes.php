@@ -47,7 +47,7 @@ $route['fineprint/(:any)'] = "main/$1";
 // Route Javascript controller to free up the alias of "javascript"
 $route['javascript/(:any)'] = "main/$1";
 
-$route[FRONTEND_MODULE_ALIAS . '/(:any)'] = "/module_frontend/index/$1";
+$route[FRONTEND_MODULE_ALIAS . '/(:any)'] = "/module_frontend/execute/$1";
 
 $route[ADMIN_ALIAS . '/(:any)'] = "fineprint/$1";
 $route[ADMIN_ALIAS] = "fineprint/main";

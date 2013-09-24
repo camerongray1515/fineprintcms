@@ -93,3 +93,28 @@ td.actions, th.actions {
     height: 100%;
     margin-top: -10px;
 }
+
+/* File browser icons */
+i[class*='icon-files-'] {
+    height: 16px;
+    width: 20px;
+    display: block;
+    margin: 0 auto;
+    background-image: url('../img/file-icons.jpg');
+    background-position-x: -116px;
+    background-position-y: -16px;
+}
+
+i.icon-files-parent {
+    background-position-x: -48px;
+    background-position-y: -16px;
+}
+
+i.icon-files-directory {
+    background-position-x: -16px;
+    background-position-y: -16px;
+}
+
+td.checkbox-container {
+    padding-top: 4px;
+}

@@ -1,0 +1,7 @@
+{
+    "name":         "Comments",
+    "description":  "A simple comments system for FinePrint CMS",
+    "version":      "1.0",
+    "identifier":   "comments",
+    "developer":    "Cameron Gray"
+}

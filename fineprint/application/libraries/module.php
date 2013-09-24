@@ -2,16 +2,30 @@
 class Module {
     protected $FP;
     protected $module;
+    protected $module_path;
 
     function __construct()
     {
         $this->FP =& get_instance();
-        $this->module = new Module_methods();
+    }
+
+    function construct_module_methods($module_path, $page_alias)
+    {
+        $this->module = new Module_methods($page_alias);
+        $this->module->path = $module_path;
     }
 }
 
 class Module_methods {
     private $module_data_store = array();
+    private $page_alias;
+
+    public $path = '';
+
+    function __construct($page_alias)
+    {
+        $this->page_alias = $page_alias;
+    }
 
     function set_module_data($module, $key, $value)
     {
@@ -28,7 +42,12 @@ class Module_methods {
         return FALSE;
     }
 
-    function render_view($view, $variables)
+    function get_page_alias()
+    {
+        return $this->page_alias;
+    }
+
+    function render_view($view, $variables = array())
     {
         $view = str_replace('.', '', $view);
 
@@ -36,7 +55,7 @@ class Module_methods {
         extract($variables);
 
         ob_start();
-        include $this->get_directory() . "/views/$view.php";
+        include "{$this->path}/views/$view.php";
         return ob_get_clean();
     }
 
@@ -60,5 +79,13 @@ class Module_methods {
         }
 
         return dirname($highest_file);
+    }
+
+    function escape_tags($content)
+    {
+        $content = str_replace(OPEN_TAG, ESCAPED_OPEN_TAG, $content);
+        $content = str_replace(CLOSE_TAG, ESCAPED_CLOSE_TAG, $content);
+
+        return $content;
     }
 }

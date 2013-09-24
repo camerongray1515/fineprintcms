@@ -1,4 +1,4 @@
-<h3>Delete User</h3>
+<h4>Delete User</h4>
 
 <div class="alert alert-error">
 	<p>Are you sure you want to delete this user?  This action cannot be undone!</p>

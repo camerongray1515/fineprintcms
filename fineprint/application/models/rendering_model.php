@@ -1,9 +1,13 @@
 <?php
 class Rendering_model extends CI_Model {
+    private $page_alias = FALSE;
+
 	function entry_point($page_alias)
 	{
 		$this->load->model('page_model');
 		$this->load->model('layout_model');
+
+        $this->page_alias = $page_alias;
 
 		$page = $this->page_model->get_page($page_alias);
 		
@@ -11,6 +15,10 @@ class Rendering_model extends CI_Model {
 		$layout = $this->layout_model->get_layout($page->layout, 'id');
 
 		$page = $this->render_content($layout->content);
+
+        // Replace any escaped tags
+        $page = str_replace(ESCAPED_OPEN_TAG, OPEN_TAG, $page);
+        $page = str_replace(ESCAPED_CLOSE_TAG, CLOSE_TAG, $page);
 		
 		return $page;
 	}
@@ -21,7 +29,7 @@ class Rendering_model extends CI_Model {
         $before_hash = hash('sha256', $content);
 
 		// Extract function calls from content
-		$get_tag_regex = '/' . preg_quote(OPEN_TAG, '/') . '[ \t]*((((?:[a-z][a-z0-9_]*))\\.)?((?:[a-z][a-z0-9_]*))(?:\(.*\)))[ \t]*' . preg_quote(CLOSE_TAG, '/') . '/';
+		$get_tag_regex = TAG_REGEX;
 		preg_match_all($get_tag_regex, $content, $function_calls);
 
         //die(print_r($function_calls, TRUE));
@@ -84,7 +92,7 @@ class Rendering_model extends CI_Model {
         $result = '';
         try
         {
-            $result = $this->module_model->execute($function->module, 'tag', $function->function, $function->parameters);
+            $result = $this->module_model->execute($function->module, 'tag', $function->function, $this->page_alias, $function->parameters);
         }
         catch (exception $e)
         {

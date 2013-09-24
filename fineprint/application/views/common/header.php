@@ -17,8 +17,8 @@
 					<?php echo top_nav_item('layouts', 'Layouts', 'layouts', 'align-justify'); ?>
 					<?php echo top_nav_item('files', 'Files', 'files', 'folder-open'); ?>
 					<?php echo top_nav_item('modules', 'Modules', 'modules', 'wrench'); ?>
-					<?php echo top_nav_item('users', 'Users', 'users', 'user'); ?>
 					<?php echo top_nav_item('settings', 'Settings', 'settings', 'cog'); ?>
+                    <li><a href="<?php echo site_url(); ?>" target="_blank"><i class="icon-white icon-search"></i> Preview Site</a></li>
 				</ul>
 				<div class="pull-right">
 					<ul class="nav pull-right">
